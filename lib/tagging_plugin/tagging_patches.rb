@@ -5,7 +5,9 @@ module TaggingPlugin
       base.send(:include, InstanceMethods)
 
       base.class_eval do
-        alias_method_chain :project_settings_tabs, :tags_tab
+        # alias_method_chain :project_settings_tabs, :tags_tab
+        alias_method :project_settings_tabs_without_tags_tab, :project_settings_tabs
+        alias_method :project_settings_tabs, :project_settings_tabs_with_tags_tab
       end
     end
 
@@ -25,7 +27,9 @@ module TaggingPlugin
       base.class_eval do
         unloadable
 
-        alias_method_chain :update, :tags
+        # alias_method_chain :update, :tags
+        alias_method :update_without_tags, :update
+        alias_method :update, :update_with_tags
       end
     end
 

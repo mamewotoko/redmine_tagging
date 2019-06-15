@@ -4,8 +4,8 @@ module RedmineTagging::Patches::ApplicationControllerPatch
   extend ActiveSupport::Concern
 
   included do
-    before_filter :include_tagging_helper
-    before_filter :patch_queries_helper
+    before_action :include_tagging_helper
+    before_action :patch_queries_helper
   end
 
   # A way to make plugin helpers available in all views

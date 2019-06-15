@@ -5,7 +5,9 @@ module TaggingPlugin
         base.send(:extend, ClassMethods)
         base.class_eval do
           class << self
-            alias_method_chain :call, :api_replacement
+            # alias_method_chain :call, :api_replacement
+            alias_method :call_without_api_replacement, :call
+            alias_method :call, :call_with_api_replacement
           end
         end
       end

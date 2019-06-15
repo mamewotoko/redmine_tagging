@@ -6,8 +6,13 @@ module RedmineTagging::Patches::QueryPatch
   included do
     unloadable # Send unloadable so it will not be unloaded in development
 
-    alias_method_chain :available_filters, :tags
-    alias_method_chain :sql_for_field, :tags
+    # alias_method_chain :available_filters, :tags
+    alias_method :available_filters_without_tags, :available_filters
+    alias_method :available_filters, :available_filters_with_tags
+
+    # alias_method_chain :sql_for_field, :tags
+    alias_method :sql_for_field_without_tags, :sql_for_field
+    alias_method :sql_for_field, :sql_for_field_with_tags
 
     tag_query_column = QueryColumn.new(:issue_tags, :caption => :field_tags)
     add_available_column(tag_query_column)
