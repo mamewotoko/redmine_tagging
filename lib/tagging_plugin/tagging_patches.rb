@@ -27,7 +27,7 @@ module TaggingPlugin
       base.class_eval do
         unloadable
 
-        #alias_method_chain :update, :tags
+        # alias_method_chain :update, :tags
         alias_method :update_without_tags, :update
         alias_method :update, :update_with_tags
       end

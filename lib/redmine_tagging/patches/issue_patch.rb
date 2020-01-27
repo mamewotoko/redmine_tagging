@@ -15,10 +15,10 @@ module RedmineTagging::Patches::IssuePatch
 
     has_many :issue_tags
 
-    #alias_method_chain :create_journal, :tags
+    # alias_method_chain :create_journal, :tags
     alias_method :create_journal_without_tags, :create_journal
     alias_method :create_journal, :create_journal_with_tags
-    
+
     # alias_method_chain :init_journal, :tags
     alias_method :init_journal_without_tags, :init_journal
     alias_method :init_journal, :init_journal_with_tags

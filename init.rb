@@ -92,14 +92,31 @@ Redmine::Plugin.register :redmine_tagging do
   end
 end
 
-# redmine4
-ActiveSupport::Reloader.to_prepare do
-#ActionDispatch::Callbacks.to_prepare do
-  require 'tagging_plugin/tagging_patches'
-  require 'tagging_plugin/api_template_handler_patch'
-  require 'redmine_tagging'
-  require File.expand_path('../app/helpers/tagging_helper', __FILE__)
-  ActionView::Base.send :include, TaggingHelper
-end
 
+# redmine4
+# ActiveSupport::Reloader.to_prepare do
+# #ActionDispatch::Callbacks.to_prepare do
+#   require 'tagging_plugin/tagging_patches'
+#   require 'tagging_plugin/api_template_handler_patch'
+#   require 'redmine_tagging'
+#   require File.expand_path('../app/helpers/tagging_helper', __FILE__)
+#   ActionView::Base.send :include, TaggingHelper
+
+if Rails::VERSION::MAJOR == 5
+  ActiveSupport::Reloader.to_prepare do
+    require 'tagging_plugin/tagging_patches'
+    require 'tagging_plugin/api_template_handler_patch'
+    require 'redmine_tagging'
+    require File.expand_path('../app/helpers/tagging_helper', __FILE__)
+    ActionView::Base.send :include, TaggingHelper
+  end
+else
+  ActionDispatch::Callbacks.to_prepare do
+    require 'tagging_plugin/tagging_patches'
+    require 'tagging_plugin/api_template_handler_patch'
+    require 'redmine_tagging'
+    require File.expand_path('../app/helpers/tagging_helper', __FILE__)
+    ActionView::Base.send :include, TaggingHelper
+  end
+end
 require_dependency 'tagging_plugin/tagging_hooks'
