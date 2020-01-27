@@ -2,7 +2,9 @@ module RedmineTagging::Patches::QueriesHelperPatch
   extend ActiveSupport::Concern
 
   included do
-    alias_method_chain :column_content, :tags
+    # alias_method_chain :column_content, :tags
+    alias_method :column_content_without_tags, :column_content
+    alias_method :column_content, :column_content_with_tags
   end
 
   def column_content_with_tags(column, issue)
